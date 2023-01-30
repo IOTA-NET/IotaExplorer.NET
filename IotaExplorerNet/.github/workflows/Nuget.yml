@@ -1,0 +1,63 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Deploy to NuGet
+
+# Controls when the workflow will run
+on:
+  workflow_dispatch:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  release:
+    types: [published]
+
+env:
+  DOMAIN_SOLUTION_PATH: ./IotaExplorerNet.Domain
+  NUGET_PATH: ${{ github.workspace }}/nugets
+  NUGET_SRC_URL: 'https://api.nuget.org/v3/index.json'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    environment: myenv
+    
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 6.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore
+        working-directory: ${{ env.DOMAIN_SOLUTION_PATH }}
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+        working-directory: ${{ env.DOMAIN_SOLUTION_PATH }}
+
+
+      - name: Get Version
+        id: version
+        uses: battila7/get-version-action@v2
+
+      - name: Pack Domain Nuget
+        run: dotnet pack ${{ env.DOMAIN_SOLUTION_PATH }} -c Release /p:Version=${{ steps.version.outputs.version-without-v }} /p:PackageReleaseNotes="See https://github.com/IOTA-NET/IotaExplorer.NET/releases/tag/${{ github.event.release.tag_name }}" --include-symbols --output ${{ env.NUGET_PATH }}
+      
+      - name: Create Domain NuGet Package Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: IotaExplorerNet.Domain
+          path: ${{ env.NUGET_PATH }}/IotaExplorerNet.Domain.${{ steps.version.outputs.version-without-v }}.nupkg
+
+      - name: Push All Nugets
+        run:  dotnet nuget push ${{ env.NUGET_PATH }}/*.nupkg -s "https://api.nuget.org/v3/index.json" --api-key ${{ secrets.NUGET_AUTH_TOKEN }} --skip-duplicate --no-symbols
+        
