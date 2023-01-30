@@ -55,7 +55,7 @@ jobs:
       - name: Create Domain NuGet Package Artifact
         uses: actions/upload-artifact@v1
         with:
-          name: IotaExplorerNet.Domain
+          name: IotaExplorerNet
           path: ${{ env.NUGET_PATH }}/IotaExplorerNet.Domain.${{ steps.version.outputs.version-without-v }}.nupkg
 
       - name: Push All Nugets
