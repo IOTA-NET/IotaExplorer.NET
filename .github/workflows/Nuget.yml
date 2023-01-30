@@ -10,7 +10,7 @@ on:
     types: [published]
 
 env:
-  DOMAIN_SOLUTION_PATH: ./IotaExplorerNet.Domain
+  DOMAIN_SOLUTION_PATH: ./IotaExplorerNet/IotaExplorerNet.Domain/IotaExplorerNet.Domain.csproj
   NUGET_PATH: ${{ github.workspace }}/nugets
   NUGET_SRC_URL: 'https://api.nuget.org/v3/index.json'
 
@@ -38,11 +38,11 @@ jobs:
 
       - name: Restore dependencies
         run: dotnet restore
-        working-directory: ${{ env.DOMAIN_SOLUTION_PATH }}
+        working-directory: ./IotaExplorerNet/
 
       - name: Build
         run: dotnet build --configuration Release --no-restore
-        working-directory: ${{ env.DOMAIN_SOLUTION_PATH }}
+        working-directory: ./IotaExplorerNet/
 
 
       - name: Get Version
