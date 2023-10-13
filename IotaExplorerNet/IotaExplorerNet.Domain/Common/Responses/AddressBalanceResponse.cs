@@ -1,4 +1,5 @@
-﻿namespace IotaExplorerNet.Domain.Common.Responses
+﻿
+namespace IotaExplorerNet.Domain.Common.Responses
 {
     public class AddressBalanceResponse
     {
@@ -23,5 +24,11 @@
         public string Bech32 { get; set; }
 
         public int Type { get; set; }
+
+
+        //public override string ToString()
+        //{
+        //    return JsonConvert.SerializeObject(this, Formatting.Indented);
+        //}
     }
 }
