@@ -1,15 +1,17 @@
 ﻿namespace IotaExplorerNet.Domain.Common
 {
-    public static class RoutesResolver
+    public static class TestnetRoutesResolver
     {
-        public static bool IsTestnet { get; set; } = false;
+        public const string AddressBalanceRoute = "/stardust/balance/testnet/{address}";
+        public const string TransactionHistoryRoute = "/stardust/transactionhistory/testnet/{address}?pageSize=10&sort=newest";
+        public const string OutputDetailsRoute = "/stardust/output/testnet/{outputId}";
+    }
 
-        public static string GetAddressBalanceRoute()
-            => IsTestnet
-            ? "/stardust/balance/testnet/{address}"
-            : "/stardust/balance/shimmer/{address}";
-
-
+    public static class ShimmerRoutesResolver
+    {
+        public const string AddressBalanceRoute = "/stardust/balance/shimmer/{address}";
+        public const string TransactionHistoryRoute = "/stardust/transactionhistory/shimmer/{address}?pageSize=10&sort=newest";
+        public const string OutputDetailsRoute = "/stardust/output/shimmer/{outputId}";
 
     }
 }

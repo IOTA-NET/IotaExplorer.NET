@@ -7,7 +7,7 @@ namespace IotaExplorerNet.Domain.Common.Interfaces
     [Headers("Content-Type: application/json")]
     public interface ITestnetExplorerApi
     {
-        [Get("/stardust/balance/testnet/{address}")]
+        [Get(TestnetRoutesResolver.AddressBalanceRoute)]
         Task<AddressBalanceResponse> GetAddressBalanceAsync(string address);
 
         [Get("/stardust/transaction/testnet/{transactionId}")]
@@ -16,6 +16,14 @@ namespace IotaExplorerNet.Domain.Common.Interfaces
         [Get("/stardust/address/outputs/nft/testnet/{address}")]
         //Task<ApiResponse<string>> GetNftBalanceAsync(string address);
         Task<ApiResponse<NftBalancesResponse>> GetNftBalanceAsync(string address);
+
+        [Get(TestnetRoutesResolver.TransactionHistoryRoute)]
+        Task<ApiResponse<TransactionHistoryResponse>> GetTransactionHistoryAsync(string address);
+
+        [Get(TestnetRoutesResolver.OutputDetailsRoute)]
+        //Task<ApiResponse<string>> GetOutputDetailsAsync(string outputId);
+        Task<ApiResponse<OutputDetailsResponse>> GetOutputDetailsAsync(string outputId);
+
     }
 
 }
