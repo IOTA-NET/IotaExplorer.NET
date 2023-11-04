@@ -50,8 +50,11 @@ jobs:
         uses: battila7/get-version-action@v2
 
       - name: Pack Domain Nuget
-        run: dotnet pack ${{ env.DOMAIN_SOLUTION_PATH }} -c Release /p:Version=${{ steps.version.outputs.version-without-v }} /p:PackageReleaseNotes="See https://github.com/IOTA-NET/IotaExplorer.NET/releases/tag/${{ github.event.release.tag_name }}" --include-symbols --output ${{ env.NUGET_PATH }}
-      
+        run: |
+          echo ${{ steps.version.outputs.version-without-v }}
+          echo okkkkkkkkk got version??
+          dotnet pack ${{ env.DOMAIN_SOLUTION_PATH }} -c Release /p:Version=${{ steps.version.outputs.version-without-v }} /p:PackageReleaseNotes="See https://github.com/IOTA-NET/IotaExplorer.NET/releases/tag/${{ github.event.release.tag_name }}" --include-symbols --output ${{ env.NUGET_PATH }}
+
       - name: Create Domain NuGet Package Artifact
         uses: actions/upload-artifact@v1
         with:
