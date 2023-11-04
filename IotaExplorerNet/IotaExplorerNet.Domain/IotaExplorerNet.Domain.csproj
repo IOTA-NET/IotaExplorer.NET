@@ -4,9 +4,9 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <PackageId>IotaExplorerNet</PackageId>
-    <Title>IotaExplorerNet</Title>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <PackageId></PackageId>
+    <Title></Title>
     <Authors>Razali</Authors>
     <Company>Razali</Company>
     <Product>IotaExplorerNet</Product>
@@ -15,6 +15,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/IOTA-NET/IotaExplorer.NET</RepositoryUrl>
     <PackageTags>iota;shimmer;smr;explorer;.net</PackageTags>
+    <Version />
   </PropertyGroup>
 
   <ItemGroup>
